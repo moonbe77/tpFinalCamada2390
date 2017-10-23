@@ -1,7 +1,20 @@
 //2390
 
-$(document).ready(function () {
-    
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCAgMMpJb1RDRtaxVm2bO-fEOArvyUJ0Gk",
+    authDomain: "progwebfinal.firebaseapp.com",
+    databaseURL: "https://progwebfinal.firebaseio.com",
+    projectId: "progwebfinal",
+    storageBucket: "progwebfinal.appspot.com",
+    messagingSenderId: "659953279005"
+  };
+  firebase.initializeApp(config);
+
+
+
+$(document).ready(function () {    
     
     $('#searchInput').keypress(function (e) {         
         var valorInput = $('#searchInput').val()
@@ -26,13 +39,33 @@ $(document).ready(function () {
             //data: txtSearch,
             dataType: "json",
             success: function (response) {
-                var lista = response.results
-                for (var key in lista) {
-                        var element = lista[key];
-                        $('#main').append(`<h4>${element.title}</h4>`)
+                var lista = response
+               for (var i = 0; i <= 9; i++) {       
+                var element = lista.results[i];
+                console.log(element)
+                $('#main').append(`
+                <div class="elementBox">
+                    <figure><img src="${element.thumbnail}"></figure>
+                    <div class="data">
+                        <div class="price">$ ${element.price}</div>
+                        <div class="title">${element.title}</div>
+                        <div class="ubica">${element.address.state_name}</div>
+                        <div class="addFav" item-id="${element.id}"><i class="fa fa-heart"></i></div>
+                    </div>                        
+                </div>
+                `)
                 }
             }
         });
     }
+
+    var addFavorito = function(id){
+    }
+    $('body').on('click','.addFav', function () {
+        var idFav = $(this).attr('item-id')
+        localStorage.setItem('favoritosML',idFav)
+        console.log(idFav)
+    });
+    
 
 });

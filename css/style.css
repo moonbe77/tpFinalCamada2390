@@ -13,6 +13,10 @@ header {
   padding: 5px 0;
 }
 
+main {
+  background-color: #e6e6e6;
+}
+
 #logo {
   margin-left: 90px;
 }
@@ -43,6 +47,49 @@ header {
 #searchButton > img {
   width: 50%;
   padding: 3px;
+}
+
+.elementBox {
+  display: flex;
+  flex-flow: row;
+  background-color: white;
+  margin: 1px 10px;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+figure {
+  margin: 0 0 0 10px;
+  display: inline-flex;
+}
+
+figure > img {
+  width: 150%;
+}
+
+.data {
+  display: flex;
+  margin: auto;
+  flex-flow: row;
+  width: 700px;
+  justify-content: space-between;
+}
+
+.price {
+  width: 100px;
+}
+
+.title {
+  width: 400px;
+}
+
+.addFav {
+  color: red;
+  cursor: pointer;
+}
+
+.addFav:hover {
+  color: brown;
 }
  
 

@@ -91,6 +91,11 @@ figure > img {
 .addFav:hover {
   color: brown;
 }
+
+.loginImg > img {
+  width: 15%;
+  border-radius: 25px;
+}
  
 
  /*# sourceMappingURL= style.css.map */

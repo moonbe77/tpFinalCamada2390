@@ -15,7 +15,6 @@
 var database = firebase.database();
 
 
-
 $(document).ready(function () {    
     
     $('#searchInput').keypress(function (e) {         
@@ -42,6 +41,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 var lista = response
+                $('#main').html("");
                for (var i = 0; i <= 9; i++) {       
                 var element = lista.results[i];
                 //console.log(element)
@@ -67,9 +67,9 @@ $(document).ready(function () {
         var idFav = $(this).attr('item-id')
         localStorage.setItem('favoritosML',idFav)
         
-        firebase.database().ref('favoritos/').set({
+        /*firebase.database().ref('favoritos/').set({
             username: name 
-          })
+          })*/
         console.log(idFav)
         saveFavorito(idFav)
     });
@@ -79,18 +79,22 @@ $('#login').click(function(){
 })
 
 });
-
 function saveFavorito(idFav) {
-    var userId = firebase.auth().currentUser.uid
-    firebase.database().ref('favoritos/'+userId).push({
-      id: idFav
+   var newPostKey = firebase.database().ref().child('favoritos').push().key;
+    firebase.database().ref('favoritos/'+window.user.uid +'/'+newPostKey).set({
+        id : idFav
     });
   }
 
-  var starCountRef = firebase.database().ref('favoritos/');
-  starCountRef.on('value', function(snapshot) {
-    //updateStarCount(postElement, snapshot.val());
+  var listaFavoritos = firebase.database().ref(userId);
+  listaFavoritos.on('value', function(snapshot) {
+  //  updateStarCount(postElement, snapshot.val());
     console.log(snapshot.val())
+    var objetosFavoritos = snapshot.val()
+    for (var key in objetosFavoritos) {
+            var element = objetosFavoritos[key];
+            console.log("for in: ",element)
+    }
   });
 
   /*return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {

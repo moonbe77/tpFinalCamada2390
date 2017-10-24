@@ -1,7 +1,7 @@
 var provider = new firebase.auth.GoogleAuthProvider();
 
 
-  
+  var userId = ""
 
 var login = function (params) {
   firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -20,6 +20,7 @@ var login = function (params) {
     var credential = error.credential;
     // ...
   }); 
+   userId = firebase.auth().currentUser.uid;
 }
 
 var logout = function (params) {
@@ -33,6 +34,9 @@ var logout = function (params) {
 
 firebase.auth().onAuthStateChanged(function(user) {
     window.user = user; // user is undefined if no user signed in
-    $('.user').text(window.user.displayName)
+    $('.user').html(`
+    <div class="loginName"></div>
+    <div class="loginImg"> <img src="${window.user.photoURL}" title="${window.user.displayName}"></div>
+    <div id="logout">LogOut</div>`)
    });
 

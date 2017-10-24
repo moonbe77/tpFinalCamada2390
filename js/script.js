@@ -11,6 +11,8 @@
     messagingSenderId: "659953279005"
   };
   firebase.initializeApp(config);
+  // Get a reference to the database service
+var database = firebase.database();
 
 
 
@@ -42,7 +44,7 @@ $(document).ready(function () {
                 var lista = response
                for (var i = 0; i <= 9; i++) {       
                 var element = lista.results[i];
-                console.log(element)
+                //console.log(element)
                 $('#main').append(`
                 <div class="elementBox">
                     <figure><img src="${element.thumbnail}"></figure>
@@ -64,8 +66,34 @@ $(document).ready(function () {
     $('body').on('click','.addFav', function () {
         var idFav = $(this).attr('item-id')
         localStorage.setItem('favoritosML',idFav)
+        
+        firebase.database().ref('favoritos/').set({
+            username: name 
+          })
         console.log(idFav)
+        saveFavorito(idFav)
     });
     
+$('#login').click(function(){
+   login()
+})
 
 });
+
+function saveFavorito(idFav) {
+    var userId = firebase.auth().currentUser.uid
+    firebase.database().ref('favoritos/'+userId).push({
+      id: idFav
+    });
+  }
+
+  var starCountRef = firebase.database().ref('favoritos/');
+  starCountRef.on('value', function(snapshot) {
+    //updateStarCount(postElement, snapshot.val());
+    console.log(snapshot.val())
+  });
+
+  /*return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+    // ...
+  });*/

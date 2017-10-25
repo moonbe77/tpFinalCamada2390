@@ -47,7 +47,7 @@ $(document).ready(function () {
                 //console.log(element)
                 $('#main').append(`
                 <div class="elementBox">
-                    <figure><img src="${element.thumbnail}"></figure>
+                    <div class="contImg"><img src="${element.thumbnail}"></div>
                     <div class="data">
                         <div class="price">$ ${element.price}</div>
                         <div class="title">${element.title}</div>
@@ -60,44 +60,33 @@ $(document).ready(function () {
             }
         });
     }
-
-    var addFavorito = function(id){
-    }
-    $('body').on('click','.addFav', function () {
-        var idFav = $(this).attr('item-id')
-        localStorage.setItem('favoritosML',idFav)
-        
-        /*firebase.database().ref('favoritos/').set({
-            username: name 
-          })*/
-        console.log(idFav)
-        saveFavorito(idFav)
-    });
     
-$('#login').click(function(){
-   login()
-})
+    $('#login').click(function(e){
+        e.preventDefault();
+       login()
+    })
+    $('#logout').click(function (e) { 
+        e.preventDefault();
+        logout()
+    });
+
+$('body').on('click','.addFav', function () {
+    var idFav = $(this).attr('item-id')
+    console.log(idFav)
+    saveFavorito(idFav)
+});
+    
 
 });
 function saveFavorito(idFav) {
-   var newPostKey = firebase.database().ref().child('favoritos').push().key;
-    firebase.database().ref('favoritos/'+window.user.uid +'/'+newPostKey).set({
-        id : idFav
+    // var newPostKey = firebase.database().ref().child('favoritos').push().key;
+    firebase.database().ref(window.user.uid+'/favoritos/'+idFav ).update({
+        id : idFav,
+        status : true, //if true hay que mostrarlos
+        views : 0
     });
-  }
+}
+ 
 
-  var listaFavoritos = firebase.database().ref(userId);
-  listaFavoritos.on('value', function(snapshot) {
-  //  updateStarCount(postElement, snapshot.val());
-    console.log(snapshot.val())
-    var objetosFavoritos = snapshot.val()
-    for (var key in objetosFavoritos) {
-            var element = objetosFavoritos[key];
-            console.log("for in: ",element)
-    }
-  });
 
-  /*return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-    // ...
-  });*/
+

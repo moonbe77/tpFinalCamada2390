@@ -19,8 +19,7 @@ var login = function (params) {
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
     // ...
-  }); 
-   userId = firebase.auth().currentUser.uid;
+  });   
 }
 
 var logout = function (params) {
@@ -34,9 +33,10 @@ var logout = function (params) {
 
 firebase.auth().onAuthStateChanged(function(user) {
     window.user = user; // user is undefined if no user signed in
-    $('.user').html(`
-    <div class="loginName"></div>
-    <div class="loginImg"> <img src="${window.user.photoURL}" title="${window.user.displayName}"></div>
-    <div id="logout">LogOut</div>`)
+    if(user != null){
+      $('.user').html(`
+      <div class="loginName"></div>
+      <div class="loginImg"> <img src="${window.user.photoURL}" title="${window.user.displayName}"></div>`)
+    }
    });
 

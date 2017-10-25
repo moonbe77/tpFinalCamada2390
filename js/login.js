@@ -1,5 +1,5 @@
 var provider = new firebase.auth.GoogleAuthProvider();
-
+var user
 
 var login = function (params) {
   firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -31,11 +31,8 @@ var logout = function (params) {
   });
 }
 
-var user = firebase.auth().currentUser;
+//var user = firebase.auth().currentUser;
 var name, email, photoUrl, uid, emailVerified;
-
-
-
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user != null) {

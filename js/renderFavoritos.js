@@ -1,13 +1,13 @@
 $(document).ready(function () {
+    console.log(user)
 
-console.log(window.user)
 var listaFavoritos = firebase.database().ref("vJBa84MoCZbQzvXS1xLHWU6N8B42/favoritos");
 
 listaFavoritos.on('value', function(snapshot) {
     console.log("DB Values: "+JSON.stringify(snapshot.val()))
     var objetosFavoritos = snapshot.val()
     
-    $('#favMain').html("")
+    $('#favMain').html("")//borro el contenido para que no se duplique
     
     for (var key in objetosFavoritos) {
         var element = objetosFavoritos[key];
@@ -15,25 +15,36 @@ listaFavoritos.on('value', function(snapshot) {
         renderFavoritos(element.id)
     }
 });
-
     
-    var renderFavoritos = function (itemID) {
-        const url = 'https://api.mercadolibre.com/items/'+itemID
-        console.log("Favorito: ", itemID)
-        $.get(url, function(data, status){
-            element = data
-            $('#favMain').append(`
-            <div class="favoritosBox">
-                <div class="favContImg"><img src="${element.pictures[0].url}"></div>
-                <div class="favData">
-                    <div class="favPrice">$ ${element.price}</div>
-                    <div class="favTitle">${element.title}</div>
-                    <div class="some">${element.condition}</div>
-                    <div class="favSee" item-id="${element.id}"><i class="fa fa-heart"></i></div>
-                </div>                        
-            </div>
-            `)
-        });
+var renderFavoritos = function (itemID) {
+    const url = 'https://api.mercadolibre.com/items/'+itemID
+    console.log("Favorito: ", itemID)
+    $.get(url, function(data, status){        
+        var renderImg
+        /*for (var i in data.pictures) {
+            var url = data.pictures[i].url
+             renderImg =+ `<img src="${url}">` 
+            console.log(renderImg)
+        }*/
+        var imagenes = 
+        for (var i = 0; i < data.pictures.length; i++) {            
+            var url =`<img src="${data.pictures[i].url}">`
+            renderImg =+ url
+           console.log(renderImg)            
+        }
+
+        $('#favMain').append(`
+        <div class="favoritosBox">
+            <div class="favContImg">${renderImg}</div>
+            <div class="favData">
+                <div class="favPrice">$ ${data.price}</div>
+                <div class="favTitle">${data.title}</div>
+                <div class="some">${data.condition}</div>
+                <div class="favSee" item-id="${data.id}"><i class="fa fa-heart"></i></div>
+            </div>                        
+        </div>
+        `)
+    });
 
         /*$.ajax({
             type: "get",

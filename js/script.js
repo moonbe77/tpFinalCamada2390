@@ -1,6 +1,5 @@
 //2390
 
-
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCAgMMpJb1RDRtaxVm2bO-fEOArvyUJ0Gk",
@@ -15,19 +14,18 @@
 var database = firebase.database();
 
 
-$(document).ready(function () {    
+$(document).ready(function () {  });
     
     $('#searchInput').keypress(function (e) {         
         var valorInput = $('#searchInput').val()
         if (e.which == 13) {
-            console.log(e.which)//(event) e.which devuelve el keycode e.type devuelve el tipo de evento            
-            //$('#main').text(valorInput);
+            console.log(e.which)//(event) e.which devuelve el keycode e.type devuelve el tipo de evento   
             search(valorInput)            
         }
     });
+
     $('#searchButton').click(function (e) {         
-        var valorInput = $('#searchInput').val()           
-       // $('#main').text(valorInput); 
+        var valorInput = $('#searchInput').val()
         search(valorInput)
        })
 
@@ -61,26 +59,24 @@ $(document).ready(function () {
         });
     }
     
-$('.login').on('click',function(e){
+$(document.body).on('click','.login',function(e){
         e.preventDefault();
         console.log("click en login")
        login()
     })
-$('.logout').on('click',function (e) { 
+
+$(document.body).on('click','.logout',function (e) { 
         e.preventDefault();
         console.log("click en logout")
-        logout()
-        
+        logout()        
     });
 
 $('body').on('click','.addFav', function () {
     var idFav = $(this).attr('item-id')
     console.log(idFav)
     saveFavorito(idFav)
-});
-    
+});   
 
-});
 function saveFavorito(idFav) {
     // var newPostKey = firebase.database().ref().child('favoritos').push().key;
     firebase.database().ref(window.user.uid+'/favoritos/'+idFav ).update({

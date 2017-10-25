@@ -1,19 +1,21 @@
 $(document).ready(function () {
 
-    var listaFavoritos = firebase.database().ref("vJBa84MoCZbQzvXS1xLHWU6N8B42/favoritos");
-    
-    listaFavoritos.on('value', function(snapshot) {
-        console.log("DB Values: "+JSON.stringify(snapshot.val()))
-        var objetosFavoritos = snapshot.val()
+console.log(window.user)
+var listaFavoritos = firebase.database().ref("vJBa84MoCZbQzvXS1xLHWU6N8B42/favoritos");
 
-        $('#favMain').html("")
-        
-        for (var key in objetosFavoritos) {
-            var element = objetosFavoritos[key];
-            console.log("for in: ",element.id)
-            renderFavoritos(element.id)
-        }
-    });
+listaFavoritos.on('value', function(snapshot) {
+    console.log("DB Values: "+JSON.stringify(snapshot.val()))
+    var objetosFavoritos = snapshot.val()
+    
+    $('#favMain').html("")
+    
+    for (var key in objetosFavoritos) {
+        var element = objetosFavoritos[key];
+        console.log("for in: ",element.id)
+        renderFavoritos(element.id)
+    }
+});
+
     
     var renderFavoritos = function (itemID) {
         const url = 'https://api.mercadolibre.com/items/'+itemID

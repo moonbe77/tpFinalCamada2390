@@ -6,7 +6,7 @@ $(document).ready(function () {
         console.log("DB Values: "+JSON.stringify(snapshot.val()))
         var objetosFavoritos = snapshot.val()
 
-        $('#main').html("")
+        $('#favMain').html("")
         
         for (var key in objetosFavoritos) {
             var element = objetosFavoritos[key];

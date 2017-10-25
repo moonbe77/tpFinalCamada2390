@@ -25,9 +25,11 @@ var login = function (params) {
 var logout = function (params) {
   firebase.auth().signOut().then(function() {
     // Sign-out successful.
-    alert("logOUT")
+    console.log("logOUT")
+    location.reload();
   }).catch(function(error) {
     // An error happened.
+    alert(error)
   });
 }
 
@@ -36,7 +38,16 @@ firebase.auth().onAuthStateChanged(function(user) {
     if(user != null){
       $('.user').html(`
       <div class="loginName"></div>
-      <div class="loginImg"> <img src="${window.user.photoURL}" title="${window.user.displayName}"></div>`)
-    }
-   });
+      <div class="loginImg"> <img src="${window.user.photoURL}" title="${window.user.displayName}"></div>
+      <div class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir
+      </div>
+      `)
+    }else{
+        $('.user').html(`
+         <div id="login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar
+         </div>
+        `)
+      }
+    
+   })
 

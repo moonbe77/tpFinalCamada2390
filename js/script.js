@@ -61,13 +61,16 @@ $(document).ready(function () {
         });
     }
     
-    $('#login').click(function(e){
+$('.login').on('click',function(e){
         e.preventDefault();
+        console.log("click en login")
        login()
     })
-    $('#logout').click(function (e) { 
+$('.logout').on('click',function (e) { 
         e.preventDefault();
+        console.log("click en logout")
         logout()
+        
     });
 
 $('body').on('click','.addFav', function () {

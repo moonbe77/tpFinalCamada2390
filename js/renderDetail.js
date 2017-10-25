@@ -1,30 +1,39 @@
 $(document).ready(function () {
+    
+    function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var itemId = getParameterByName('itemId');
+    console.log(itemId)
+
     console.log("cargando")
     console.log("user data: "+user)
 
-var listaFavoritos = firebase.database().ref("vJBa84MoCZbQzvXS1xLHWU6N8B42/favoritos");
+    var listaFavoritos = firebase.database().ref("vJBa84MoCZbQzvXS1xLHWU6N8B42/favoritos/"+itemId);
 
-listaFavoritos.on('value', function(snapshot) {
+    listaFavoritos.on('value', function(snapshot) {
     //console.log("DB Values: "+JSON.stringify(snapshot.val()))
     var objetosFavoritos = snapshot.val()
-    var objetoKEY = snapshot.key
-    console.log(objetoKEY)
-    console.log(objetosFavoritos)
+    
     $('#favMain').html("")//borro el contenido para que no se duplique
     
     for (var key in objetosFavoritos) {
         var element = objetosFavoritos[key];
         //console.log("for in: ",element.id)
         renderFavoritos(element.id)
-    }
-});
+        }
+    });
     
-var renderFavoritos = function (itemID) {
+    var renderFavoritos = function (itemID) {
     const url = 'https://api.mercadolibre.com/items/'+itemID
     //console.log("Favorito: ", itemID)
 
     $.get(url, function(data, status){  
-       // console.log(data)
+        console.log(status)
         $('#favMain').append(`
         <div class="favoritosBox">
             <div class="favContImg">
@@ -47,10 +56,6 @@ var renderFavoritos = function (itemID) {
         activarSlider()*/
     });    
 }
-
-
-
- 
 /*
 var activarSlider = function (){
     $(".rslides").responsiveSlides({
@@ -73,5 +78,4 @@ var activarSlider = function (){
   });
 }*/
   
-
 });

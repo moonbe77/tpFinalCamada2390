@@ -12,15 +12,16 @@
   firebase.initializeApp(config);
   // Get a reference to the database service
   var database = firebase.database();
+
    var spinner = $('.spinner')
    spinner.hide()
 
  var DatosAmostrar = function(idML,img,price,title,address){
-    idML=idML,
-    imagen = img,
-    precio = price,
-    titulo = title,
-    ubicacion = address
+    this.idML=idML,
+    this.imagen = img,
+    this.precio = price,
+    this.titulo = title,
+    this.ubicacion = address
 }
 var dataItem = {}  
 
@@ -31,6 +32,7 @@ $(document).ready(function () {
         if (e.which == 13) {
             console.log(e.which)//(event) e.which devuelve el keycode e.type devuelve el tipo de evento   
             search(valorInput)            
+            saveSearch(valorInput)            
         }
         
     });
@@ -38,74 +40,66 @@ $(document).ready(function () {
     $('#searchButton').click(function (e) {         
         var valorInput = $('#searchInput').val()
         search(valorInput)
+        saveSearch(valorInput)  
     })
-});    
-    var search = function (txtSearch) {
-        spinner.show()
-        const url = 'https://api.mercadolibre.com/sites/MLA/search?q='+txtSearch+'&limit=10'
-        console.log("Buscando: ", txtSearch)
-        $.ajax({
-            type: "get",
-            url: url,
-            //data: txtSearch,
-            dataType: "json",
-            success: function (response) {
-                var lista = response
-                console.log(lista)
-                $('#main').html("");
+}); 
 
-               for (var i = 0; i <= 9; i++) {       
-                   var element = lista.results[i];
-                   dataItem = new DatosAmostrar(
-                       element.id,
-                        element.thumbnail,
-                        element.price,
-                        element.title,
-                        element.address.state_name
-                    )
+var search = function (txtSearch) {
+    spinner.show()
+    const url = 'https://api.mercadolibre.com/sites/MLA/search?q='+txtSearch+'&limit=10'
+    console.log("Buscando: ", txtSearch)
+    $.ajax({
+        type: "get",
+        url: url,
+        //data: txtSearch,
+        dataType: "json",
+        success: function (response) {
+            var lista = response
+            console.log(lista)
+            $('#main').html("");
 
-                   //console.log(element)
-                   $('#main').append(`
-                    <div class="elementBox">
-                        <div class="contImg"><img src="${element.thumbnail}"></div>
-                        <div class="data">
-                        <div class="price">$ ${element.price}</div>
-                        <div class="title">${element.title}</div>
-                        <div class="ubica">${element.address.state_name}</div>
-                        <div class="addFav" item-id="${element.id}"><i class="fa fa-heart"></i></div>
-                        </div>                        
-                    </div>
-                        `)
-                    }
-                },
-                complete: function(){
-                    spinner.hide()
-                    yaEstoyEnFavotitos()
-                }
-            });
-        }
+            for (var i = 0; i <= 9; i++) {       
+                var element = lista.results[i];
+                dataItem = new DatosAmostrar(
+                    element.id,
+                    element.thumbnail,
+                    element.price,
+                    element.title,
+                    element.address.state_name
+                )
+                agragarItem(dataItem)
+            }
+        },
+        complete: function(){
+            spinner.hide()
+                //yaEstoyEnFavotitos()
+            }
+        });
+    }
 
         //validar si este item ya esta en favoritos
 var yaEstoyEnFavotitos = function(){
-    var arrItems = $('.addFav')
-    for (var key in arrItems) {        
-        var element = arrItems[key].attributes['item-id'].nodeValue;
-        console.log(element)       
+    var items = $('.addFav')
+    for (var key in items) {        
+        //var element = arrItems[key].attributes['item-id'].nodeValue;
+        console.log(items)       
+        }
     }
-}
 
-var agragarItem = function (params) {
+var agragarItem = function (data) {
+    console.log("added desde funcion")
     $('#main').append(`
     <div class="elementBox">
-        <div class="contImg"><img src="${element.thumbnail}"></div>
+        <div class="contImg"><img src="${data.imagen}"></div>
         <div class="data">
-        <div class="price">$ ${element.price}</div>
-        <div class="title">${element.title}</div>
-        <div class="ubica">${element.address.state_name}</div>
-        <div class="addFav" item-id="${element.id}"><i class="fa fa-heart"></i></div>
+        <div class="price">$ ${data.precio}</div>
+        <div class="title">${data.titulo}</div>
+        <div class="ubica">${data.ubicacion}</div>
+        <div class="addFav" item-id="${data.idML}"><i class="fa fa-heart"></i></div>
         </div>                        
-    </div>
+    </div>    
         `)
+        $('.elementBox').animateCss('fadeIn');
 }
     $('body').on('click','.login',function(e){
         e.preventDefault();
@@ -146,6 +140,13 @@ function saveFavorito(idFav) {
     firebase.database().ref(window.user.uid+'/favoritos/'+idFav ).update({
         id : idFav,
         status : true, //if true hay que mostrarlos
+        views : 0
+    });
+}
+function saveSearch(search) {
+    // var newPostKey = firebase.database().ref().child('favoritos').push().key;
+    firebase.database().ref(window.user.uid+'/busquedas/'+search ).update({
+        text : search,
         views : 0
     });
 }

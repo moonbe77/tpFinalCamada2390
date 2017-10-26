@@ -160,13 +160,13 @@ figure > img {
   width: 400px;
 }
 
-.addFav {
-  color: red;
+.addFav > i {
+  color: brown !important;
   cursor: pointer;
 }
 
-.addFav:hover {
-  color: brown !important;
+.addFav:hover > i {
+  color: red !important;
 }
 
 /*FAVORITOS*/

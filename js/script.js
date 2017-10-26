@@ -14,8 +14,17 @@
   var database = firebase.database();
    var spinner = $('.spinner')
    spinner.hide()
-   
-  $(document).ready(function () {  
+
+ var DatosAmostrar = function(idML,img,price,title,address){
+    idML=idML,
+    imagen = img,
+    precio = price,
+    titulo = title,
+    ubicacion = address
+}
+var dataItem = {}  
+
+$(document).ready(function () {  
 
     $('#searchInput').keypress(function (e) {         
         var valorInput = $('#searchInput').val()
@@ -30,10 +39,10 @@
         var valorInput = $('#searchInput').val()
         search(valorInput)
     })
-    
+});    
     var search = function (txtSearch) {
         spinner.show()
-        const url = 'https://api.mercadolibre.com/sites/MLA/search?q='+txtSearch
+        const url = 'https://api.mercadolibre.com/sites/MLA/search?q='+txtSearch+'&limit=10'
         console.log("Buscando: ", txtSearch)
         $.ajax({
             type: "get",
@@ -42,9 +51,19 @@
             dataType: "json",
             success: function (response) {
                 var lista = response
+                console.log(lista)
                 $('#main').html("");
+
                for (var i = 0; i <= 9; i++) {       
                    var element = lista.results[i];
+                   dataItem = new DatosAmostrar(
+                       element.id,
+                        element.thumbnail,
+                        element.price,
+                        element.title,
+                        element.address.state_name
+                    )
+
                    //console.log(element)
                    $('#main').append(`
                     <div class="elementBox">
@@ -61,17 +80,33 @@
                 },
                 complete: function(){
                     spinner.hide()
+                    yaEstoyEnFavotitos()
                 }
             });
         }
 
         //validar si este item ya esta en favoritos
 var yaEstoyEnFavotitos = function(){
-
+    var arrItems = $('.addFav')
+    for (var key in arrItems) {        
+        var element = arrItems[key].attributes['item-id'].nodeValue;
+        console.log(element)       
+    }
 }
 
-
-
+var agragarItem = function (params) {
+    $('#main').append(`
+    <div class="elementBox">
+        <div class="contImg"><img src="${element.thumbnail}"></div>
+        <div class="data">
+        <div class="price">$ ${element.price}</div>
+        <div class="title">${element.title}</div>
+        <div class="ubica">${element.address.state_name}</div>
+        <div class="addFav" item-id="${element.id}"><i class="fa fa-heart"></i></div>
+        </div>                        
+    </div>
+        `)
+}
     $('body').on('click','.login',function(e){
         e.preventDefault();
         console.log("click en login")
@@ -103,7 +138,7 @@ var yaEstoyEnFavotitos = function(){
         removeFavorito(idFav)
         //saveFavorito(idFav)
     });
-});
+
 
     
 function saveFavorito(idFav) {

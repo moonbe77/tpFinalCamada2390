@@ -37,7 +37,7 @@ var detalle = function(id){
     console.log("buscando el detalle de:",id)
     var urlDetalle = 'https://api.mercadolibre.com/items/'+id+'/description';
     $.get(urlDetalle, function(data, status){ 
-        $('.detalleText').html(data.text);
+        $('.detalleText').html(data.plain_text);
      })
       activarSlider()
       spinner.hide()

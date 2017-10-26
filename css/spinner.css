@@ -1,13 +1,17 @@
 .spinner {
-  margin: 100px auto 0;
-  width: 70px;
+  margin: auto;
+  width: 100px;
   text-align: center;
+  z-index: 99;
+  position: fixed;
+  top: 125px;
+  left: 50%;
 }
 
 .spinner > div {
   width: 18px;
   height: 18px;
-  background-color: #333;
+  background-color: #fff40d;
 
   border-radius: 100%;
   display: inline-block;
@@ -39,3 +43,4 @@
     transform: scale(1.0);
   }
 }
+

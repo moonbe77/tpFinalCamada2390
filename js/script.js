@@ -12,9 +12,7 @@
   firebase.initializeApp(config);
   // Get a reference to the database service
   var database = firebase.database();
-  
-  
-  
+   
   $(document).ready(function () {  
 
     $('#searchInput').keypress(function (e) {         
@@ -45,21 +43,28 @@
                    var element = lista.results[i];
                    //console.log(element)
                    $('#main').append(`
-                <div class="elementBox">
-                <div class="contImg"><img src="${element.thumbnail}"></div>
-                <div class="data">
-                    <div class="price">$ ${element.price}</div>
-                    <div class="title">${element.title}</div>
-                    <div class="ubica">${element.address.state_name}</div>
-                    <div class="addFav" item-id="${element.id}"><i class="fa fa-heart"></i></div>
+                    <div class="elementBox">
+                        <div class="contImg"><img src="${element.thumbnail}"></div>
+                        <div class="data">
+                        <div class="price">$ ${element.price}</div>
+                        <div class="title">${element.title}</div>
+                        <div class="ubica">${element.address.state_name}</div>
+                        <div class="addFav" item-id="${element.id}"><i class="fa fa-heart"></i></div>
                         </div>                        
-                        </div>
+                    </div>
                         `)
                     }
                 }
             });
         }
-        
+
+        //validar si este item ya esta en favoritos
+var yaEstoyEnFavotitos = function(){
+
+}
+
+
+
     $('body').on('click','.login',function(e){
         e.preventDefault();
         console.log("click en login")

@@ -26,7 +26,7 @@ var renderFavoritos = function (itemID) {
     $.get(url, function(data, status){  
        // console.log(data)
         $('#favMain').append(`
-        <div class="favoritosBox">
+        <div class="favoritosBox flash">
             <div class="favContImg">
                 <img src="${data.pictures[0].url}">
                 <!--<ul class="rslides">

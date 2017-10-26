@@ -21,24 +21,7 @@ listaFavoritos.on('value', function(snapshot) {
     
 var renderFavoritos = function (itemID) {
     const url = 'https://api.mercadolibre.com/items/'+itemID
-<<<<<<< HEAD
-    console.log("Favorito: ", itemID)
-    $.get(url, function(data, status){        
-        var renderImg
-        /*for (var i in data.pictures) {
-            var url = data.pictures[i].url
-             renderImg =+ `<img src="${url}">` 
-            console.log(renderImg)
-        }*/
-        //var imagenes = 
-        for (var i = 0; i < data.pictures.length; i++) {            
-            var url =`<img src="${data.pictures[i].url}">`
-            renderImg =+ url
-           console.log(renderImg)            
-        }
-=======
     //console.log("Favorito: ", itemID)
->>>>>>> e76c3ced4a2290a66492761d4952d6123f1909fd
 
     $.get(url, function(data, status){  
        // console.log(data)

@@ -11,11 +11,10 @@
   };
   firebase.initializeApp(config);
   // Get a reference to the database service
-var database = firebase.database();
+  var database = firebase.database();
+   
+  $(document).ready(function () {  
 
-
-$(document).ready(function () {  });
-    
     $('#searchInput').keypress(function (e) {         
         var valorInput = $('#searchInput').val()
         if (e.which == 13) {
@@ -23,12 +22,12 @@ $(document).ready(function () {  });
             search(valorInput)            
         }
     });
-
+    
     $('#searchButton').click(function (e) {         
         var valorInput = $('#searchInput').val()
         search(valorInput)
-       })
-
+    })
+    
     var search = function (txtSearch) {
         const url = 'https://api.mercadolibre.com/sites/MLA/search?q='+txtSearch
         console.log("Buscando: ", txtSearch)
@@ -41,42 +40,65 @@ $(document).ready(function () {  });
                 var lista = response
                 $('#main').html("");
                for (var i = 0; i <= 9; i++) {       
-                var element = lista.results[i];
-                //console.log(element)
-                $('#main').append(`
-                <div class="elementBox">
-                    <div class="contImg"><img src="${element.thumbnail}"></div>
-                    <div class="data">
+                   var element = lista.results[i];
+                   //console.log(element)
+                   $('#main').append(`
+                    <div class="elementBox">
+                        <div class="contImg"><img src="${element.thumbnail}"></div>
+                        <div class="data">
                         <div class="price">$ ${element.price}</div>
                         <div class="title">${element.title}</div>
                         <div class="ubica">${element.address.state_name}</div>
                         <div class="addFav" item-id="${element.id}"><i class="fa fa-heart"></i></div>
-                    </div>                        
-                </div>
-                `)
+                        </div>                        
+                    </div>
+                        `)
+                    }
                 }
-            }
-        });
-    }
-    
-$(document.body).on('click','.login',function(e){
+            });
+        }
+
+        //validar si este item ya esta en favoritos
+var yaEstoyEnFavotitos = function(){
+
+}
+
+
+
+    $('body').on('click','.login',function(e){
         e.preventDefault();
         console.log("click en login")
-       login()
+        login()
     })
 
-$(document.body).on('click','.logout',function (e) { 
+    $('body').on('click','.logout',function (e) { 
         e.preventDefault();
-        console.log("click en logout")
-        logout()        
+            console.log("click en logout")
+            logout()        
+        });
+        
+    $('body').on('click','.addFav', function () {
+        var idFav = $(this).attr('item-id')
+        console.log(idFav)
+        saveFavorito(idFav)
+    });  
+
+    $('body').on('click','.detail', function () {
+        var idFav = $(this).attr('item-id')
+        console.log("detail: "+idFav)
+        window.location.href = `detalle.html?id=${idFav}`;
+        //saveFavorito(idFav)
     });
 
-$('body').on('click','.addFav', function () {
-    var idFav = $(this).attr('item-id')
-    console.log(idFav)
-    saveFavorito(idFav)
-});   
+    $('body').on('click','.delete', function () {
+        var idFav = $(this).attr('item-id')
+        console.log("delete: "+idFav)
+        removeFavorito(idFav)
+        //saveFavorito(idFav)
+    });
+});
 
+    
 function saveFavorito(idFav) {
     // var newPostKey = firebase.database().ref().child('favoritos').push().key;
     firebase.database().ref(window.user.uid+'/favoritos/'+idFav ).update({
@@ -85,7 +107,11 @@ function saveFavorito(idFav) {
         views : 0
     });
 }
- 
+
+var removeFavorito = function (item){
+    firebase.database().ref("vJBa84MoCZbQzvXS1xLHWU6N8B42/favoritos/"+item).remove()
+    console.log("Borrado item: ",item)
+}
 
 
 

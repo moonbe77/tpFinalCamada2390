@@ -49,12 +49,12 @@ firebase.auth().onAuthStateChanged(function(user) {
       $('.user').html(`
       <div class="loginName"></div>
       <div class="loginImg"> <img src="${photoUrl}" title="${name}"></div>
-      <div class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir
+      <div class="logout"><i class="fa fa-sign-out" aria-hidden="true" title="Salir"></i>
       </div>
       `)
     }else{
       $('.user').html(`
-         <div class="login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar
+         <div class="login"><i class="fa fa-sign-in" aria-hidden="true" title="Ingresa"></i> 
          </div>
         `)
       $('#main').html(`

@@ -1,3 +1,49 @@
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+}
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: 0;
+}
+
+.detailBox {
+  display: flex;
+  width: 100%;
+  background-color: whitesmoke;
+}
+
+.detailContImg {
+  flex: 1;
+}
+
+.detailData {
+  flex: 2;
+}
+
 body {
   background-color: lightgray;
   margin: 0px;
@@ -30,7 +76,7 @@ main {
 }
 
 #logo > img {
-  width: 45%;
+  width: 100%;
 }
 
 #searchInput {
@@ -75,6 +121,11 @@ main {
   border-radius: 25px;
 }
 
+.fa {
+  font-size: 1.5em;
+  color: cornflowerblue;
+}
+
 .elementBox {
   display: flex;
   flex-flow: row;
@@ -115,7 +166,7 @@ figure > img {
 }
 
 .addFav:hover {
-  color: brown;
+  color: brown !important;
 }
 
 /*FAVORITOS*/
@@ -125,6 +176,7 @@ figure > img {
   padding: 10px 0;
   width: 300px;
   height: 450px;
+  transition: 1s;
 }
 
 .favContImg {

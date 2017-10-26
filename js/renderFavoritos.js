@@ -26,7 +26,7 @@ var renderFavoritos = function (itemID) {
              renderImg =+ `<img src="${url}">` 
             console.log(renderImg)
         }*/
-        var imagenes = 
+        //var imagenes = 
         for (var i = 0; i < data.pictures.length; i++) {            
             var url =`<img src="${data.pictures[i].url}">`
             renderImg =+ url

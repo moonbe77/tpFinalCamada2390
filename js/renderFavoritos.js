@@ -20,6 +20,7 @@ listaFavoritos.on('value', function(snapshot) {
 });
     
 var renderFavoritos = function (itemID) {
+    spinner.show()
     const url = 'https://api.mercadolibre.com/items/'+itemID
     //console.log("Favorito: ", itemID)
 
@@ -45,6 +46,9 @@ var renderFavoritos = function (itemID) {
              $('.rslides').append(`<li><img src="${data.pictures[i].url}"></li>`)
         }
         activarSlider()*/
+        if (status == "success") {
+            spinner.hide()
+        }
     });    
 }
 

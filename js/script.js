@@ -12,6 +12,8 @@
   firebase.initializeApp(config);
   // Get a reference to the database service
   var database = firebase.database();
+   var spinner = $('.spinner')
+   spinner.hide()
    
   $(document).ready(function () {  
 
@@ -21,6 +23,7 @@
             console.log(e.which)//(event) e.which devuelve el keycode e.type devuelve el tipo de evento   
             search(valorInput)            
         }
+        
     });
     
     $('#searchButton').click(function (e) {         
@@ -29,6 +32,7 @@
     })
     
     var search = function (txtSearch) {
+        spinner.show()
         const url = 'https://api.mercadolibre.com/sites/MLA/search?q='+txtSearch
         console.log("Buscando: ", txtSearch)
         $.ajax({
@@ -54,6 +58,9 @@
                     </div>
                         `)
                     }
+                },
+                complete: function(){
+                    spinner.hide()
                 }
             });
         }

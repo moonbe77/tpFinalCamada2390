@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+    spinner.show()
     var itemId  = location.search.slice(4);
     console.log(itemId)    
     const url = 'https://api.mercadolibre.com/items/'+itemId
@@ -40,6 +40,7 @@ var detalle = function(id){
         $('.detalleText').html(data.text);
      })
       activarSlider()
+      spinner.hide()
 }
 
 var activarSlider = function (){

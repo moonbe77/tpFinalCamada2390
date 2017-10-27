@@ -1,6 +1,11 @@
+@import 'slide.sass'
+@import 'detail.sass'
+
 body
     background-color: lightgray
     margin: 0px
+    font-family: monospace
+    font-size: 17px
 
 header
     background-color: #ffe600
@@ -14,11 +19,17 @@ header
 main
     background-color: rgb(230, 230, 230)
 
+#favMain
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+
+
 #logo
     margin-left: 90px
 
 #logo > img
-        width: 45%
+        width: 100%
 
 #searchInput
     width: 50%
@@ -41,6 +52,24 @@ main
     width: 50%
     padding: 3px
 
+.userBox
+    display: flex
+    flex-direction: row
+    flex-flow: row-reverse
+    //width: 400px
+    right: 14px
+    position: absolute
+.user
+    display: flex
+    align-items: center
+
+.loginImg > img
+    width: 50px
+    border-radius: 25px
+.fa
+    font-size: 1.5em
+    color: cornflowerblue
+
 .elementBox
     display: flex
     flex-flow: row
@@ -49,9 +78,10 @@ main
     justify-content: space-around
     padding: 10px 0
 
-figure
+.contImg
     margin: 0 0 0 10px
     display: inline-flex
+
 
 figure > img
     width: 150%
@@ -69,8 +99,38 @@ figure > img
 .title
     width: 400px
 
-.addFav
-    color: red
+.addFav > i
+    color: brown !important
     cursor: pointer
-.addFav:hover
-    color: brown
+
+.addFav:hover > i
+    color: red !important
+
+/*FAVORITOS*/
+.favoritosBox
+    //display: flex
+    //flex-flow: row
+    background-color: white
+    margin: 5px 5px    
+    //justify-content: space-around
+    padding: 10px 0
+    width: 300px
+    height: 450px
+    transition: 1s
+
+.favContImg
+    display: inline-block
+    text-align: center
+
+.favContImg > img
+    width: 100%
+
+
+/*FAVORITOS*/
+/*ANIMACION*/
+#yourElement {
+  -vendor-animation-duration: 3s;
+  -vendor-animation-delay: 2s;
+  -vendor-animation-iteration-count: infinite;
+}
+/*ANIMACION*/

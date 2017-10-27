@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="https://http2.mlstatic.com/resources/frontend/commons-frontend/ui-dist/images/components/navigation/ML/favicon.d865b493.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/style.css" rel="stylesheet"></link>
+    <link href="css/spinner.css" rel="stylesheet"></link>
+    <link href="css/animate.css" rel="stylesheet"></link>
 
     <title>Trabajo Final</title>
 </head>
@@ -15,14 +18,43 @@
        <div id="searchBox">
            <input type="text" id="searchInput" value="honda civic">
           <button id="searchButton"><img src="assets/ic_Search@2x.png.png.png" alt=""></button>
-          <a href="favoritos.html"><i class="fa fa-heart"></i></a>
-       </div>   
+          <a href="favoritos.html"><i class="fa fa-heart"></i></a>          
+       </div>
+       <div class="userBox">
+           <div class="user"></div>                
+           </div> 
     </header>
     <main>
-        <div id="main"></div>
+        <div id="main">
+                
+        </div>
     </main>
-    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <footer>
+        
+    </footer>
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    <!--<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>-->
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/script.js"></script>    
+    <script src="js/login.js"></script>  
+    <script>
+        $.fn.extend({
+    animateCss: function (animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        this.addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).removeClass('animated ' + animationName);
+        });
+        return this;
+    }
+});
+    </script>
 </body>
 </html>

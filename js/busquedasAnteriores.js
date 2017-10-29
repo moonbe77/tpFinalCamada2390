@@ -3,7 +3,7 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(function(user) {
         mostrarBusquedasPasadas()  
     } )
-    
+
 $('body').on('click','.searchOld', function (){
    var busqueda = $(this).attr('data-search');
    console.log(busqueda)
@@ -19,6 +19,7 @@ var mostrarBusquedasPasadas = function (params) {
         var objetoKEY = snapshot.key
         //console.log(user.uid)
         //console.log(objetosFavoritos)
+        $('#main').html('')        
         $('#main').append('<h3>Busquedas Anteriores</h3><div id="delSearch"><i class="fa fa-trash"></i></div>')
         $('#main').append('<div id="help"> click para buscar de nuevo</div>')
         $('#main').append('<div id="boxSearch">')

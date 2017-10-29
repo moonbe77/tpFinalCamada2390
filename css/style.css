@@ -123,6 +123,10 @@ figure > img {
   color: red !important;
 }
 
+.inFavoritos > i {
+  color: red !important;
+}
+
 /*FAVORITOS*/
 .favoritosBox {
   background-color: white;

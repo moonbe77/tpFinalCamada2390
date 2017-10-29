@@ -18,7 +18,7 @@ var login = function (params) {
     var token = result.credential.accessToken;
     // The signed-in user info.
     user = result.user;
-    location.reload();
+   // location.reload();
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;

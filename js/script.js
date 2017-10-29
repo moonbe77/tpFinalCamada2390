@@ -1,7 +1,7 @@
 //2390
 
   // Get a reference to the database service
-  var database = firebase.database();
+var database = firebase.database();
   
 var spinner = $('.spinner')
     spinner.hide()
@@ -13,10 +13,17 @@ var spinner = $('.spinner')
     this.titulo = title,
     this.ubicacion = address,
     this.inFav = function (idML) {
-
+        var state = favoritosEnBd.indexOf(this.idML)
+        console.log(idML)
+            if (state == -1){
+                return false
+            }else{
+                return true
+            }
       }
 }
-var dataItem = {}  
+var dataItem = {}
+var favoritosEnBd = []  
 
 $(document).ready(function () { 
 
@@ -26,8 +33,7 @@ $(document).ready(function () {
             console.log(e.which)//(event) e.which devuelve el keycode e.type devuelve el tipo de evento   
             search(valorInput)            
             saveSearch(valorInput)            
-        }
-        
+        }        
     });
     
     $('#searchButton').click(function (e) {         
@@ -45,12 +51,21 @@ $(document).ready(function () {
         return this;
         }
     });
-
+    
+    firebase.auth().onAuthStateChanged(function(user) {
+        firebase.database().ref(user.uid+"/favoritos").once('value', function(snapshot) {
+            var itemsEnBd = snapshot.val()
+            for (var key in itemsEnBd) {   
+                console.log(itemsEnBd[key].id)
+                favoritosEnBd.push(itemsEnBd[key].id)       
+                }
+            })
+        })
 }); 
 
 var search = function (txtSearch) {
     spinner.show()
-    $('#msje').html('Buscando > '+txtSearch)
+    $('#msje').html('Buscando... '+txtSearch)
 
     const url = 'https://api.mercadolibre.com/sites/MLA/search?q='+txtSearch+'&limit=10'
     console.log("Buscando: ", txtSearch)
@@ -83,24 +98,16 @@ var search = function (txtSearch) {
             }  
         },
         complete: function(){
-            spinner.hide()            
-                //yaEstoyEnFavotitos()
+            spinner.hide()    
             }
         });
     }
 
-        //validar si este item ya esta en favoritos
-var yaEstoyEnFavotitos = function(){
-    var items = $('.addFav')
-    for (var key in items) {        
-        //var element = arrItems[key].attributes['item-id'].nodeValue;
-        //console.log(items)       
-        }
-    }
 
 var agragarItem = function (data) {
-
     //console.log("added desde funcion")
+    console.log(data.idML+"-"+data.inFav())
+   
     $('#main').append(`
     <div class="elementBox">
         <div class="contImg"><img src="${data.imagen}"></div>
@@ -108,11 +115,15 @@ var agragarItem = function (data) {
         <div class="price">$ ${data.precio}</div>
         <div class="title">${data.titulo}</div>
         <div class="ubica">${data.ubicacion}</div>
-        <div class="addFav" item-id="${data.idML}"><i class="fa fa-heart"></i></div>
+        <div class="addFav" item-id="${data.idML}"><i class="fa fa-heart-o"></i></div>
         </div>                        
     </div>    
         `)
         $('.elementBox').animateCss('fadeIn');
+        if(data.inFav()){
+            $("[item-id='"+data.idML+"']").addClass('inFavoritos')
+            $("[item-id='"+data.idML+"']").empty().html('<i class="fa fa-heart"></i>')
+        }
 }
     $('body').on('click','.login',function(e){
         e.preventDefault();

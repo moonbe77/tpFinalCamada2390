@@ -56,8 +56,8 @@ $(document).ready(function () {
         firebase.database().ref(user.uid+"/favoritos").once('value', function(snapshot) {
             var itemsEnBd = snapshot.val()
             for (var key in itemsEnBd) {   
-                console.log(itemsEnBd[key].id)
-                favoritosEnBd.push(itemsEnBd[key].id)       
+                //console.log(itemsEnBd[key].id)
+                favoritosEnBd.push(itemsEnBd[key].id)  ///creo un array de los items en BD para comparar si ya esta guardado     
                 }
             })
         })
@@ -139,6 +139,8 @@ var agragarItem = function (data) {
         
     $('body').on('click','.addFav', function () {
         var idFav = $(this).attr('item-id')
+        $(this).addClass('inFavoritos')
+        $(this).empty().html('<i class="fa fa-heart"></i>')
         console.log(idFav)
         saveFavorito(idFav)
     });  

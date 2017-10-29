@@ -3,6 +3,7 @@ $(document).ready(function () {
     var itemId  = location.search.slice(4);
     console.log(itemId)    
     const url = 'https://api.mercadolibre.com/items/'+itemId
+
     $.get(url, function(data, status){  
         
         console.log(data.pictures.length)
@@ -13,11 +14,13 @@ $(document).ready(function () {
                     </ul>
                 </div>
                 <div class="detailData">
-                    <div class="detailPrice">$ ${data.price}</div>
-                    <div class="detailTitle">${data.title}</div>
-                    <div class="some">${data.condition}</div>
-                    <div class="detalleText"></div>                    
-                </div>                        
+                    <div class="boxPrecio">
+                        <div class="detailPrice">$ ${data.price}</div>
+                        <div class="detailTitle">${data.title}</div>
+                        <div class="some">${data.condition}</div>
+                    </div>
+                  <div class="detalleText"></div>                    
+                </div>  
             </div>`)
 
         for (var i in data.pictures) {            
@@ -26,7 +29,9 @@ $(document).ready(function () {
     console.log(status)
         if(status == "success"){
             console.log("buscando el detalle XXXXXXX:",data.id)
-            detalle(data.id)
+            detalle(data.id)      
+            $('.detailBox').animateCss('bounceInUp');
+            
         }else{
             alert("hubo algun problema cargando los detalles")
         }
@@ -37,7 +42,8 @@ var detalle = function(id){
     console.log("buscando el detalle de:",id)
     var urlDetalle = 'https://api.mercadolibre.com/items/'+id+'/description';
     $.get(urlDetalle, function(data, status){ 
-        $('.detalleText').html(data.plain_text);
+        $('.detalleText').html(data.text);
+       
      })
       activarSlider()
       spinner.hide()

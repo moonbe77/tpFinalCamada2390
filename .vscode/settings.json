@@ -1,0 +1,8 @@
+{
+    "liveSassCompile.settings.excludeList": [
+        "**/node_modules/**",
+        ".vscode/**",
+        "**/css/detail.sass",
+        "**/css/slide.sass"
+    ]
+}

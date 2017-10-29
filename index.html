@@ -25,6 +25,7 @@
            </div> 
     </header>
     <main>
+        <div id="msje"></div>
         <div id="main">
                 
         </div>
@@ -43,18 +44,9 @@
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/script.js"></script>    
     <script src="js/login.js"></script>  
-    <script>
-        $.fn.extend({
-    animateCss: function (animationName) {
-        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-        this.addClass('animated ' + animationName).one(animationEnd, function() {
-            $(this).removeClass('animated ' + animationName);
-        });
-        return this;
-    }
-});
-    </script>
+    <script src="js/script.js"></script>    
+    <script src="js/busquedasAnteriores.js"></script>    
+
 </body>
 </html>

@@ -1,5 +1,4 @@
-@import 'slide.sass'
-@import 'detail.sass'
+
 
 body
     background-color: lightgray
@@ -59,9 +58,11 @@ main
     //width: 400px
     right: 14px
     position: absolute
+
 .user
     display: flex
     align-items: center
+
 
 .loginImg > img
     width: 50px
@@ -75,13 +76,12 @@ main
     flex-flow: row
     background-color: white
     margin: 1px 10px    
-    justify-content: space-around
+    justify-content: space-around 
     padding: 10px 0
 
 .contImg
     margin: 0 0 0 10px
     display: inline-flex
-
 
 figure > img
     width: 150%
@@ -121,16 +121,34 @@ figure > img
 .favContImg
     display: inline-block
     text-align: center
+    margin: 0 8px 0 8px
 
 .favContImg > img
     width: 100%
+    max-height: 226px
+    box-shadow: 0px 3px 12px 0px black
+    padding: 0px
 
+#msje 
+    padding: 20px
+    text-align: center
+    font-size: 1.5em
+    color: #777574
+
+#txtBusqueda
+    font-weight: bold
+    text-transform: uppercase
+    color: black
 
 /*FAVORITOS*/
 /*ANIMACION*/
-#yourElement {
-  -vendor-animation-duration: 3s;
-  -vendor-animation-delay: 2s;
-  -vendor-animation-iteration-count: infinite;
-}
+
+/*#yourElement 
+  -vendor-animation-duration: 3s
+  -vendor-animation-delay: 2s
+  -vendor-animation-iteration-count: infinite*/
+
 /*ANIMACION*/
+@import 'slide.sass'
+@import 'detail.sass'
+

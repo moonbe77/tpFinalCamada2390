@@ -1,5 +1,16 @@
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCAgMMpJb1RDRtaxVm2bO-fEOArvyUJ0Gk",
+    authDomain: "progwebfinal.firebaseapp.com",
+    databaseURL: "https://progwebfinal.firebaseio.com",
+    projectId: "progwebfinal",
+    storageBucket: "progwebfinal.appspot.com",
+    messagingSenderId: "659953279005"
+  };
+  firebase.initializeApp(config);
+
 var provider = new firebase.auth.GoogleAuthProvider();
-var user
+var datosUsuario = {}
 
 var login = function (params) {
   firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -7,7 +18,7 @@ var login = function (params) {
     var token = result.credential.accessToken;
     // The signed-in user info.
     user = result.user;
-    location.reload();
+   // location.reload();
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -35,7 +46,7 @@ var logout = function (params) {
 var name, email, photoUrl, uid, emailVerified;
 
 firebase.auth().onAuthStateChanged(function(user) {
-  if (user != null) {
+  if (user) {
   name = user.displayName;
   email = user.email;
   photoUrl = user.photoURL;
@@ -45,13 +56,15 @@ firebase.auth().onAuthStateChanged(function(user) {
                    // you have one. Use User.getToken() instead.
 }
     window.user = user; // user is undefined if no user signed in
-    if(user != null){
+    
+    if(user){
       $('.user').html(`
       <div class="loginName"></div>
       <div class="loginImg"> <img src="${photoUrl}" title="${name}"></div>
       <div class="logout"><i class="fa fa-sign-out" aria-hidden="true" title="Salir"></i>
       </div>
       `)
+      datosUsuario = user
     }else{
       $('.user').html(`
          <div class="login"><i class="fa fa-sign-in" aria-hidden="true" title="Ingresa"></i> 

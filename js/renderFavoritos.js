@@ -1,24 +1,27 @@
-$(document).ready(function () {
+
+//$(document).ready(function () {
     console.log("cargando")
-    console.log("user data: "+user)
+    console.log("user data: "+datosUsuario.uid)
 
-var listaFavoritos = firebase.database().ref("vJBa84MoCZbQzvXS1xLHWU6N8B42/favoritos");
+firebase.auth().onAuthStateChanged(function(user) {
+    var listaFavoritos = firebase.database().ref(user.uid+"/favoritos");
 
-listaFavoritos.on('value', function(snapshot) {
-    //console.log("DB Values: "+JSON.stringify(snapshot.val()))
-    var objetosFavoritos = snapshot.val()
-    var objetoKEY = snapshot.key
-    console.log(objetoKEY)
-    console.log(objetosFavoritos)
-    $('#favMain').html("")//borro el contenido para que no se duplique
-    
-    for (var key in objetosFavoritos) {
-        var element = objetosFavoritos[key];
-        //console.log("for in: ",element.id)
-        renderFavoritos(element.id)
-    }
-});
-    
+    listaFavoritos.on('value', function(snapshot) {
+        //console.log("DB Values: "+JSON.stringify(snapshot.val()))
+        var objetosFavoritos = snapshot.val()
+        var objetoKEY = snapshot.key
+        console.log(objetoKEY)
+        console.log(objetosFavoritos)
+        $('#favMain').html("")//borro el contenido para que no se duplique
+        
+        for (var key in objetosFavoritos) {
+            var element = objetosFavoritos[key];
+            //console.log("for in: ",element.id)
+            renderFavoritos(element.id)
+        }
+    });
+} )
+
 var renderFavoritos = function (itemID) {
     spinner.show()
     const url = 'https://api.mercadolibre.com/items/'+itemID
@@ -27,7 +30,7 @@ var renderFavoritos = function (itemID) {
     $.get(url, function(data, status){  
        // console.log(data)
         $('#favMain').append(`
-        <div class="favoritosBox flash">
+        <div class="favoritosBox">
             <div class="favContImg">
                 <img src="${data.pictures[0].url}">
                 <!--<ul class="rslides">
@@ -48,13 +51,11 @@ var renderFavoritos = function (itemID) {
         activarSlider()*/
         if (status == "success") {
             spinner.hide()
+            $('.favoritosBox').animateCss('bounceInUp');
         }
     });    
 }
 
-
-
- 
 /*
 var activarSlider = function (){
     $(".rslides").responsiveSlides({
@@ -78,4 +79,4 @@ var activarSlider = function (){
 }*/
   
 
-});
+//});

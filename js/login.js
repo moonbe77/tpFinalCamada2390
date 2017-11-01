@@ -59,16 +59,14 @@ firebase.auth().onAuthStateChanged(function(user) {
     
     if(user){
       $('.user').html(`
-      <div class="loginName"></div>
-      <div class="loginImg"> <img src="${photoUrl}" title="${name}"></div>
-      <div class="logout"><i class="fa fa-sign-out" aria-hidden="true" title="Salir"></i>
-      </div>
+      <li class="loginImg"> <img src="${photoUrl}" title="${name}"></li>
+      <li class="logout"><i class="fa fa-sign-out" aria-hidden="true" title="Salir"></li>
       `)
       datosUsuario = user
     }else{
       $('.user').html(`
-         <div class="login"><i class="fa fa-sign-in" aria-hidden="true" title="Ingresa"></i> 
-         </div>
+         <li class="login"><i class="fa fa-sign-in" aria-hidden="true" title="Ingresa"></i> 
+         </li>
         `)
       $('#main').html(`
       <h4>Ingresa para guardar tus favorito</h4>

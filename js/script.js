@@ -61,6 +61,12 @@ $(document).ready(function () {
                 }
             })
         })
+    
+    //metodo de jquery de usar el evento "on" pasando los eventos y su funcion
+    $('.user').on({
+       mouseover : function(){$('.logout').show('fast')},
+       mouseleave : function (params) { $('.logout').hide('fast')} 
+    })
 }); 
 
 var search = function (txtSearch) {
@@ -153,13 +159,14 @@ var agragarItem = function (data) {
     });
 
     $('body').on('click','.delete', function () {
+       var okDelete =  confirm ("Quieres Quitar Esto de Favoritos?")
         var idFav = $(this).attr('item-id')
         console.log("delete: "+idFav)
-        removeFavorito(idFav)
+        if (okDelete){
+            removeFavorito(idFav)
+        }
         //saveFavorito(idFav)
     });
-
-
     
 function saveFavorito(idFav) {
     //console.log(datosUsuario.uid)

@@ -58,15 +58,18 @@ firebase.auth().onAuthStateChanged(function(user) {
     window.user = user; // user is undefined if no user signed in
     
     if(user){
+      $('#menu_fav').show('fast')
       $('.user').html(`
-      <li class="loginImg"> <img src="${photoUrl}" title="${name}"></li>
-      <li class="logout"><i class="fa fa-sign-out" aria-hidden="true" title="Salir"></li>
+      <div class="loginImg"> <img src="${photoUrl}" title="${name}"></div>
+      <div class="logout"><i class="fa fa-sign-out" aria-hidden="true" title="Salir"></i>
+      </div>
       `)
       datosUsuario = user
     }else{
+      $('#menu_fav').hide('fast')
       $('.user').html(`
-         <li class="login"><i class="fa fa-sign-in" aria-hidden="true" title="Ingresa"></i> 
-         </li>
+         <div class="login"><i class="fa fa-sign-in" aria-hidden="true" title="Ingresa"></i> 
+         </div>
         `)
       $('#main').html(`
       <h4>Ingresa para guardar tus favorito</h4>
@@ -76,10 +79,5 @@ firebase.auth().onAuthStateChanged(function(user) {
       <h4>Ingresa para ver tus Favoritos</h4>
       <div class="login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar
       </div>`)      
-      }
-    
+      }    
    })
-
-
-   
-

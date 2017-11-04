@@ -5,7 +5,7 @@
 
 firebase.auth().onAuthStateChanged(function(user) {
     var listaFavoritos = firebase.database().ref(user.uid+"/favoritos");
-
+spinner.show()
     listaFavoritos.on('value', function(snapshot) {
         //console.log("DB Values: "+JSON.stringify(snapshot.val()))
         var objetosFavoritos = snapshot.val()
@@ -15,22 +15,22 @@ firebase.auth().onAuthStateChanged(function(user) {
         $('#favMain').html("")//borro el contenido para que no se duplique
         
         for (var key in objetosFavoritos) {
-            var element = objetosFavoritos[key];
-            //console.log("for in: ",element.id)
+            var element = objetosFavoritos[key]          
             renderFavoritos(element.id)
         }
+        animar() //llamo a la funcion que muestra los resultados con la animaion de animate.css
     });
 } )
 
 var renderFavoritos = function (itemID) {
-    spinner.show()
+    
     const url = 'https://api.mercadolibre.com/items/'+itemID
     //console.log("Favorito: ", itemID)
-
+    $('.favoritosBox').hide()
     $.get(url, function(data, status){  
        // console.log(data)
         $('#favMain').append(`
-        <div class="favoritosBox">
+        <div class="favoritosBox ">
             <div class="favContImg">
                 <img src="${data.pictures[0].url}">
                 <!--<ul class="rslides">
@@ -40,8 +40,10 @@ var renderFavoritos = function (itemID) {
                 <div class="favPrice">$ ${data.price}</div>
                 <div class="favTitle">${data.title}</div>
                 <div class="some">${data.condition}</div>
-                <div class="detail" item-id="${data.id}"><i class="fa fa-plus"></i> Detalles</div>
-                <div class="delete" item-id="${data.id}"><i class="fa fa-trash"></i> Delete</div>
+                <div class="boxFavBotonoes">
+                    <div class="detail" item-id="${data.id}"><i class="fa fa-plus"></i></div>
+                    <div class="delete" item-id="${data.id}"><i class="fa fa-trash"></i></div>
+                </div>
             </div>                        
         </div>`)
 
@@ -49,11 +51,15 @@ var renderFavoritos = function (itemID) {
              $('.rslides').append(`<li><img src="${data.pictures[i].url}"></li>`)
         }
         activarSlider()*/
-        if (status == "success") {
-            spinner.hide()
-            $('.favoritosBox').animateCss('bounceInUp');
-        }
+      
     });    
+}
+
+var animar = function (params) {
+    console.log("Soy animar")
+        spinner.hide()
+        $('#favMain').show()
+        $('#favMain').animateCss('bounceInUp');    
 }
 
 /*

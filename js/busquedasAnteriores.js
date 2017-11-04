@@ -10,8 +10,11 @@ $('body').on('click','.searchOld', function (){
    search(busqueda)
 })
 $('body').on('click','#delSearch', function (){
-    firebase.database().ref(user.uid+"/busquedas").remove()
-    location.reload();
+    var delOK = confirm("Seguro?")
+    if (delOK) {
+        firebase.database().ref(user.uid+"/busquedas").remove()
+        location.reload();        
+    }
  })
 });
 
@@ -21,7 +24,7 @@ var mostrarBusquedasPasadas = function (params) {
         var objetosFavoritos = snapshot.val()
         console.log(objetosFavoritos)
         if(objetosFavoritos == null){
-            $('#main').html('<h3>Busquedas Anteriores</h3> no tienes busquedas</div>')  
+            $('#main').html('<h3>Busquedas Anteriores</h3> Hostorial Vacio</div>')  
         }else{
             $('#main').empty()        
             $('#main').append('<h3>Busquedas Anteriores</h3><div id="delSearch"><i class="fa fa-trash"></i></div>')
@@ -29,10 +32,10 @@ var mostrarBusquedasPasadas = function (params) {
             $('#main').append('<div id="boxSearch">')
             
             for (var key in objetosFavoritos) {
-                var element = objetosFavoritos[key];
+                var element = objetosFavoritos[key].text
                 $('#boxSearch').append(`
                 <div class="searchs">                
-                <a class="searchOld" data-search="${element.text}"><i class="fa fa-link"></i> "${element.text}"</a>  
+                <a class="searchOld" data-search="${element}"><i class="fa fa-refresh"></i> ${element}</a>  
                 </div>`)
             }
             $('#main').append('</div>')

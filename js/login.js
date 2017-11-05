@@ -78,5 +78,19 @@ firebase.auth().onAuthStateChanged(function(user) {
       <h4>Ingresa para ver tus Favoritos</h4>
       <div class="login"><i class="fa fa-google" aria-hidden="true"></i> Entrar
       </div>`)      
-      }    
+      }   
+      
+      qtyFavHeart()
    })
+
+   var qtyFavHeart = function () {
+    firebase.database().ref(user.uid+"/favoritos").once('value', function(snapshot) {
+      var itemsEnBd = snapshot.val()
+      console.log(itemsEnBd)
+      var x=0
+      for (var key in itemsEnBd) {
+          x  += 1
+          $('#qtyFav').text(x) 
+        }
+      }) 
+   }

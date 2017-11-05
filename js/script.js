@@ -54,12 +54,13 @@ $(document).ready(function () {
     
     //para comprobar si ya esta en favoritos
     firebase.auth().onAuthStateChanged(function(user) {
-        firebase.database().ref(user.uid+"/favoritos").once('value', function(snapshot) {
+        firebase.database().ref(user.uid+"/favoritos").on('value', function(snapshot) {
             var itemsEnBd = snapshot.val()
             for (var key in itemsEnBd) {   
                 //console.log(itemsEnBd[key].id)
-                favoritosEnBd.push(itemsEnBd[key].id)  ///creo un array de los items en BD para comparar si ya esta guardado     
-                }
+                favoritosEnBd.push(itemsEnBd[key].id)  ///creo un array de los items en BD para comparar si ya esta guardado 
+            }
+            qtyFavHeart()
             })
         })
     
@@ -83,7 +84,7 @@ var search = function (txtSearch) {
         dataType: "json",
         success: function (response) {
             var lista = response            
-            console.log("Lista de resultados"+lista.results.length)
+            //console.log("Lista de resultados"+lista.results.length)
             if(lista.results.length != 0){
               $('#main').empty() 
                 for (var i = 0; i <= 9; i++) {       
@@ -113,7 +114,7 @@ var search = function (txtSearch) {
 
 var agragarItem = function (data) {
     //console.log("added desde funcion")
-    console.log(data.idML+"-"+data.inFav())
+    //console.log(data.idML+"-"+data.inFav())
    
     $('#main').append(`
     <div class="elementBox">
@@ -134,13 +135,13 @@ var agragarItem = function (data) {
 }
     $('body').on('click','.login',function(e){
         e.preventDefault();
-        console.log("click en login")
+        //console.log("click en login")
         login()
     })
 
     $('body').on('click','.logout',function (e) { 
         e.preventDefault();
-            console.log("click en logout")
+            //console.log("click en logout")
             logout()        
         });
         
@@ -148,13 +149,22 @@ var agragarItem = function (data) {
         var idFav = $(this).attr('item-id')
         $(this).addClass('inFavoritos')
         $(this).empty().html('<i class="fa fa-heart"></i>')
-        console.log(idFav)
+        //console.log(idFav)
         saveFavorito(idFav)
-    });  
+        qtyFavHeart()
+    }); 
+
+    $('body').on('click','.inFavoritos', function () {
+        var idFav = $(this).attr('item-id')
+        $(this).empty().html('<i class="fa fa-heart-o"></i>')
+        //console.log(idFav)
+        removeFavorito(idFav)
+        qtyFavHeart()
+    }); 
 
     $('body').on('click','.detail', function () {
         var idFav = $(this).attr('item-id')
-        console.log("detail: "+idFav)
+        //console.log("detail: "+idFav)
         window.location.href = `detalle.html?id=${idFav}`;
         //saveFavorito(idFav)
     });
@@ -162,7 +172,7 @@ var agragarItem = function (data) {
     $('body').on('click','.delete', function () {
        var okDelete =  confirm ("Quieres Quitar Esto de Favoritos?")
         var idFav = $(this).attr('item-id')
-        console.log("delete: "+idFav)
+        //console.log("delete: "+idFav)
         if (okDelete){
             removeFavorito(idFav)
         }

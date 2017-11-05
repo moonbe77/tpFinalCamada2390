@@ -51,9 +51,14 @@ main {
 @media screen and (max-width: 539px) {
   #searchBox {
     width: 100%;
-    display: flex;
-    /* justify-content: center; */
     margin-top: 94px;
+    box-shadow: 1px 3px 9px -5px black;
+  }
+}
+
+@media screen and (min-width: 730px) {
+  #searchBox {
+    width: 50%;
   }
 }
 
@@ -367,6 +372,13 @@ figure > img {
 .detailBox {
   display: flex;
   background-color: whitesmoke;
+}
+
+@media screen and (max-width: 861px) {
+  .detailBox {
+    display: null;
+    margin: 0 50px;
+  }
 }
 
 .detailContImg {

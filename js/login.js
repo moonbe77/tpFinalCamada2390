@@ -8,12 +8,11 @@
     messagingSenderId: "659953279005"
   };
   firebase.initializeApp(config);
+  var datosUsuario = {}
 
-var provider = new firebase.auth.GoogleAuthProvider();
-var datosUsuario = {}
-
+var provider = new firebase.auth.GoogleAuthProvider()
 var login = function (params) {
-  firebase.auth().signInWithRedirect(provider).then(function(result) {
+  firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
     // The signed-in user info.
@@ -28,7 +27,7 @@ var login = function (params) {
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
     // ...
-  });   
+  })  
 }
 
 var logout = function (params) {

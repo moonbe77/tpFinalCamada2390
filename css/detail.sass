@@ -3,10 +3,14 @@
 /*Componentes del render de datils*/
 .detailBox
     display: flex
-    background-color: whitesmoke    
+    background-color: whitesmoke
+    @media screen and (max-width: $break-medium)
+        display: null
+        margin: 0 50px 
 
 .detailContImg
     flex: 1
+    //@media screen and (max-width: $break-very-small)
 
 .detailData
     flex: 2

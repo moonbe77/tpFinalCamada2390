@@ -30,7 +30,7 @@
         </div>
     </main>
     <footer>
-        
+        <button class="test" on-click='alert()'><i class="fa fa-google"></i></button>
     </footer>
     <div class="spinner">
         <div class="bounce1"></div>
@@ -46,6 +46,12 @@
     <script src="js/login.js"></script>  
     <script src="js/script.js"></script>    
     <script src="js/busquedasAnteriores.js"></script>    
-
+      <script>
+          $(".test").click(function () {
+              alert("test")
+              login()
+          })
+          
+      </script>
 </body>
 </html>

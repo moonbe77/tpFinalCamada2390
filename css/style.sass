@@ -1,4 +1,7 @@
-
+$break-very-small: 539px
+$break-small: 540px
+$break-medium: 861px
+$break-large: 1024px
 
 body
     background-color: lightgray
@@ -22,6 +25,8 @@ main
     background-color: rgb(230, 230, 230)
     text-align: center
     padding-top: 55px
+    @media screen and (max-width: $break-very-small) 
+        padding-top: 81px
 
 #logo
     background-image:  url(https://http2.mlstatic.com/ui/navigation/2.3.5/mercadolibre/logo__large.png)
@@ -38,6 +43,11 @@ main
     /*width: 100%*/
     display: flex
     justify-content: center
+    @media screen and (max-width: $break-very-small) 
+        width: 100%
+        display: flex
+        /* justify-content: center; */
+        margin-top: 94px
 
 #searchInput
     width: 500px

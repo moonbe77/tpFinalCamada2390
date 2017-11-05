@@ -48,7 +48,8 @@ var detalle = function(id){
     var urlDetalle = 'https://api.mercadolibre.com/items/'+id+'/description';
     $.get(urlDetalle, function(data, status){ 
         if(data.text == ""){
-            $('.detalleText').text(data.plain_text)
+            var txt = nl2br(data.plain_text); 
+            $('.detalleText').html(txt)
         }else{
             $('.detalleText').html(data.text)            
         }       
@@ -56,6 +57,14 @@ var detalle = function(id){
       activarSlider()
       spinner.hide()
 }
+
+//FUNCION PARA GREGAR SALTOS DE LINEA AL PLAIN TEXT DEVUELOT POR MELI
+function nl2br (str, is_xhtml) {
+    console.log("nl2br")
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n|\r\n\r\n)/g, '$1' + breakTag + '$2');
+}
+
 
 var activarSlider = function (){
     $(".rslides").responsiveSlides({

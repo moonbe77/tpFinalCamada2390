@@ -16,6 +16,7 @@ header {
   height: 50px;
   position: fixed;
   width: 100%;
+  z-index: 999;
 }
 
 main {
@@ -26,7 +27,39 @@ main {
 
 @media screen and (max-width: 539px) {
   main {
-    padding-top: 81px;
+    padding-top: 121px;
+  }
+}
+
+.pageTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  padding: 10px;
+}
+
+@media screen and (max-width: 539px) {
+  .pageTitle {
+    background: white;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    top: 61px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .pageTitle {
+    margin: auto;
+    left: 45%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .pageTitle {
+    margin: auto;
+    left: 45%;
   }
 }
 
@@ -129,7 +162,7 @@ main {
 }
 
 .menu_link {
-  color: red;
+  color: #655757;
   margin: auto;
   padding: 30px;
 }
@@ -143,6 +176,12 @@ main {
   flex-direction: row;
   right: 14px;
   position: absolute;
+}
+
+@media screen and (min-width: 1024px) {
+  .userBox {
+    top: -15px;
+  }
 }
 
 .fa-heart {
@@ -169,7 +208,9 @@ main {
 
 .loginImg {
   /*border: 1px solid white*/
-  border-radius: 25px;
+  border-radius: 35px;
+  width: 100%;
+  height: 60%;
   overflow: hidden;
   cursor: pointer;
   margin: 0 10px 0 0;
@@ -242,6 +283,16 @@ figure > img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#qtyFav {
+  font-size: 0.5em;
+  position: absolute;
+  left: 6px;
+  color: white;
+  top: 5px;
+  font-weight: 900;
+  font-family: monospace;
 }
 
 .favoritosBox {
@@ -374,21 +425,29 @@ figure > img {
   background-color: whitesmoke;
 }
 
-@media screen and (max-width: 861px) {
+@media screen and (max-width: 540px) {
   .detailBox {
-    display: null;
-    margin: 0 50px;
+    flex-flow: column;
+    margin: 0 20px;
   }
 }
 
 .detailContImg {
   flex: 1;
+  max-height: 300px;
+}
+
+@media screen and (max-width: 540px) {
+  .detailContImg {
+    overflow: hidden;
+  }
 }
 
 .detailData {
   flex: 2;
   background-color: white;
   margin: 10px 10px;
+  padding: 10px;
 }
 
 .boxPrecio {
@@ -402,26 +461,21 @@ figure > img {
   align-items: center;
 }
 
-@media screen and (max-width: 539px) {
+@media screen and (max-width: 540px) {
   .boxPrecio {
-    height: 90px;
-    position: fixed;
     background-color: #f9f9f9;
     font-size: 0.6em;
-    /* box-shadow: 1px 1px 8px 0px black; */
-    width: 270px;
-    top: 60px;
+    box-shadow: 1px 1px 8px 0px black;
   }
 }
 
 @media screen and (min-width: 540px) and (max-width: 861px) {
   .boxPrecio {
     height: 60px;
-    position: fixed;
     background-color: #f9f9f9;
     font-size: 0.6em;
     box-shadow: 1px 1px 8px 0px black;
-    width: 365px;
+    width: 100%;
   }
 }
 
@@ -452,13 +506,19 @@ figure > img {
 }
 
 .detalleText {
-  box-shadow: 1px 1px 8px 0px black;
+  width: 100%;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 540px) {
   .detalleText {
-    margin-top: 65px;
+    margin-top: 5px;
+    font-size: 0.7em;
   }
+}
+
+.detalleText img {
+  width: 100%;
 }
 
 .detailPrice {

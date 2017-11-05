@@ -8,10 +8,9 @@
     messagingSenderId: "659953279005"
   };
   firebase.initializeApp(config);
+  var datosUsuario = {}
 
-var provider = new firebase.auth.GoogleAuthProvider();
-var datosUsuario = {}
-
+var provider = new firebase.auth.GoogleAuthProvider()
 var login = function (params) {
   firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -28,7 +27,7 @@ var login = function (params) {
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
     // ...
-  });   
+  })  
 }
 
 var logout = function (params) {
@@ -66,18 +65,18 @@ firebase.auth().onAuthStateChanged(function(user) {
       `)
       datosUsuario = user
     }else{
-      $('#menu_fav').hide('fast')
+      //$('#menu_fav').hide('fast')
       $('.user').html(`
-         <div class="login"><i class="fa fa-sign-in" aria-hidden="true" title="Ingresa"></i> 
+         <div class="login"><i class="fa fa-google" aria-hidden="true" title="Ingresa"></i> 
          </div>
         `)
       $('#main').html(`
       <h4>Ingresa para guardar tus favorito</h4>
-      <div class="login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar
+      <div class="login"><i class="fa fa-google" aria-hidden="true"></i> Entrar
       </div>`)
       $('#favMain').html(`
       <h4>Ingresa para ver tus Favoritos</h4>
-      <div class="login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar
+      <div class="login"><i class="fa fa-google" aria-hidden="true"></i> Entrar
       </div>`)      
       }    
    })

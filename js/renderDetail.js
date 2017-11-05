@@ -19,8 +19,13 @@ $(document).ready(function () {
                         <div class="detailTitle">${data.title}</div>
                         <div class="some">${data.condition}</div>
                     </div>
-                  <div class="detalleText"></div>                    
-                </div>  
+                    <div class="boxCantidad">
+                        <span class="qty">Cant. Inicial: ${data.initial_quantity}</span>
+                        <span class="qty">Cant. Disponible: ${data.available_quantity}</span>
+                        <span class="qty">Vendidos: ${data.sold_quantity}</span>
+                    </div>
+                    <div class="detalleText"></div>                    
+                    </div>  
             </div>`)
 
         for (var i in data.pictures) {            
@@ -46,8 +51,7 @@ var detalle = function(id){
             $('.detalleText').text(data.plain_text)
         }else{
             $('.detalleText').html(data.text)            
-        }
-       
+        }       
      })
       activarSlider()
       spinner.hide()
@@ -55,17 +59,17 @@ var detalle = function(id){
 
 var activarSlider = function (){
     $(".rslides").responsiveSlides({
-        auto: false,             // Boolean: Animate automatically, true or false
-        speed: 500,            // Integer: Speed of the transition, in milliseconds
-        timeout: 1000,          // Integer: Time between slide transitions, in milliseconds
+        auto: true,             // Boolean: Animate automatically, true or false
+        speed: 1000,            // Integer: Speed of the transition, in milliseconds
+        timeout: 3000,          // Integer: Time between slide transitions, in milliseconds
         pager: false,           // Boolean: Show pager, true or false
         nav: true,             // Boolean: Show navigation, true or false
     random: false,          // Boolean: Randomize the order of the slides, true or false
     pause: true,           // Boolean: Pause on hover, true or false
     pauseControls: true,    // Boolean: Pause when hovering controls, true or false
-    prevText: "Previous",   // String: Text for the "previous" button
-    nextText: "Next",       // String: Text for the "next" button
-    maxwidth: "150px",           // Integer: Max-width of the slideshow, in pixels
+    prevText: "<..<.|",   // String: Text for the "previous" button
+    nextText: "|.>..>",       // String: Text for the "next" button
+    //maxwidth: "150px",           // Integer: Max-width of the slideshow, in pixels
     navContainer: "",       // Selector: Where controls should be appended to, default is after the 'ul'
     manualControls: "",     // Selector: Declare custom pager navigation
     namespace: "rslides",   // String: Change the default namespace used
@@ -73,5 +77,8 @@ var activarSlider = function (){
     after: function(){}     // Function: After callback
   });
 }
-  
+$(window).scroll(function(e){
+    //$("span").text(x += 1);
+    console.log(e)
+});
 });

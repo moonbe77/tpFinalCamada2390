@@ -12,8 +12,8 @@ var spinner = $('.spinner')
     this.precio = price,
     this.titulo = title,
     this.ubicacion = address,
-    this.inFav = function (idML) {
-        var state = favoritosEnBd.indexOf(this.idML)
+    this.inFav = function (idML) { //este metodo devuelve true si esta en favoritos o false de no estarlo
+        var state = favoritosEnBd.indexOf(this.idML) 
         console.log(idML)
             if (state == -1){
                 return false
@@ -52,6 +52,7 @@ $(document).ready(function () {
         }
     });
     
+    //para comprobar si ya esta en favoritos
     firebase.auth().onAuthStateChanged(function(user) {
         firebase.database().ref(user.uid+"/favoritos").once('value', function(snapshot) {
             var itemsEnBd = snapshot.val()
@@ -84,7 +85,7 @@ var search = function (txtSearch) {
             var lista = response            
             console.log("Lista de resultados"+lista.results.length)
             if(lista.results.length != 0){
-              $('#main').html("")
+              $('#main').empty() 
                 for (var i = 0; i <= 9; i++) {       
                 var element = lista.results[i];
                 dataItem = new DatosAmostrar(
@@ -98,7 +99,7 @@ var search = function (txtSearch) {
             }
             $('#msje').html('Buscaste:<span id="txtBusqueda">'+txtSearch+'</span>')
             }else{
-                $('#main').html("")              
+                $('#main').empty()              
                 $('#msje').html('0 Resultados')
                 mostrarBusquedasPasadas()
             }  
@@ -171,6 +172,7 @@ var agragarItem = function (data) {
 function saveFavorito(idFav) {
     //console.log(datosUsuario.uid)
     // var newPostKey = firebase.database().ref().child('favoritos').push().key;
+
     firebase.database().ref(datosUsuario.uid+'/favoritos/'+idFav ).update({
         id : idFav,
         status : true, //if true hay que mostrarlos
@@ -190,5 +192,7 @@ var removeFavorito = function (item){
     console.log("Borrado item: ",item)
 }
 
-
-
+loginMobile = function (params) {
+    console.log("login mobile")
+    login()
+}

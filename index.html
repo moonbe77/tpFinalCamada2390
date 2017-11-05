@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +30,7 @@
         </div>
     </main>
     <footer>
-        
+        <button class="test" on-click='alert()'><i class="fa fa-google"></i></button>
     </footer>
     <div class="spinner">
         <div class="bounce1"></div>
@@ -46,6 +46,12 @@
     <script src="js/login.js"></script>  
     <script src="js/script.js"></script>    
     <script src="js/busquedasAnteriores.js"></script>    
-
+      <script>
+          $(".test").click(function () {
+              alert("test")
+              loginMobile()
+          })
+          
+      </script>
 </body>
 </html>
